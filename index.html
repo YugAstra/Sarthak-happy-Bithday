@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Awesome Friend, Sarthak!</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Dancing Script font for a personalized, handwritten style -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <!-- Load Inter font for general text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght[100..900]&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the aesthetic look and animations */
+        :root {
+            --primary-pink: #f472b6; /* Lighter Pink */
+            --dark-pink: #db2777; /* Deep Pink/Rose */
+            --light-bg: #fdf2f8; /* Very Light Pinkish Background */
+            --shadow-color: rgba(219, 39, 119, 0.5); /* Deep Pink Shadow */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Floating Hearts Canvas --- */
+        #heart-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1; 
+        }
+
+        /* --- Transparent Cake Background --- */
+        #transparent-cake {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg); 
+            font-size: 50vw;
+            line-height: 1;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 5;
+            text-shadow: 0 0 10px var(--dark-pink);
+            animation: slow-spin 40s linear infinite; 
+        }
+        
+        @keyframes slow-spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* --- Initial Greeting Card Styling (First Screen) --- */
+        #initial-greeting {
+            position: fixed; 
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            background-color: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 20px 50px -12px var(--shadow-color);
+            padding: 3rem;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            transition: opacity 1s, transform 1s; 
+        }
+
+        /* --- Click Me Button Styling --- */
+        #reveal-button {
+            background-color: var(--dark-pink);
+            color: white;
+            padding: 0.75rem 2.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, transform 0.1s;
+            animation: button-pulse 1.5s infinite ease-in-out;
+        }
+        #reveal-button:hover {
+            background-color: var(--primary-pink);
+            transform: scale(1.05);
+            animation: none;
+        }
+
+        @keyframes button-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(219, 39, 119, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(219, 39, 119, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(219, 39, 119, 0); }
+        }
+        
+        /* --- Main Content / Game Container --- */
+        .aesthetic-container {
+            background-color: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 20px 50px -12px var(--shadow-color);
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 700px; 
+            padding: 3rem 1.5rem;
+            margin-top: 20px; 
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .aesthetic-container {
+                padding: 4rem;
+            }
+        }
+
+        /* --- Main Title Styling & Pulse Animation --- */
+        #main-title {
+            font-family: 'Dancing Script', cursive;
+            color: var(--dark-pink);
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse-heart 2s infinite ease-in-out;
+        }
+
+        .animated-cake {
+            animation: pulse-heart 2s infinite ease-in-out;
+        }
+
+        #subtitle {
+             font-family: 'Dancing Script', cursive;
+             color: var(--primary-pink);
+             font-size: clamp(2rem, 5vw, 3rem);
+             margin-top: -10px;
+        }
+
+        @keyframes pulse-heart {
+            0% { transform: scale(1); opacity: 0.95; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.95; }
+        }
+
+        /* --- Personal Message Styling (Updated for smooth hover effect) --- */
+        .personal-message {
+            background-color: var(--light-bg);
+            border-left: 5px solid var(--primary-pink);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            /* Smooth transition for the container properties */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        /* New Hover State for the container */
+        .personal-message:hover {
+            background-color: #fff0f5; /* Lighter/Warmer background on hover */
+            border-left: 8px solid var(--dark-pink); /* Thicker, deeper border */
+            /* Lifted shadow effect */
+            box-shadow: 0 8px 15px rgba(219, 39, 119, 0.2), inset 0 0 10px rgba(0, 0, 0, 0.08); 
+        }
+
+        .personal-message p {
+            /* Keep the text color/shadow transition */
+            transition: color 0.4s, text-shadow 0.4s;
+        }
+        
+        /* New Hover State for the text */
+        .personal-message:hover p {
+            color: #4c4c4c; /* Darken text slightly for contrast */
+            text-shadow: 0 0 5px rgba(219, 39, 119, 0.5); /* Enhanced text glow */
+        }
+        
+        /* Guestbook Styles */
+        .guestbook-title {
+            font-family: 'Dancing Script', cursive; 
+            font-size: clamp(2rem, 5vw, 2.5rem); 
+            color: var(--dark-pink);
+            border-bottom: 2px solid var(--primary-pink); 
+        }
+        .guestbook-message {
+            background-color: #ffffff;
+            border: 1px solid var(--primary-pink);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .guestbook-header {
+            font-weight: 700;
+            color: var(--dark-pink);
+            border-bottom: 1px dashed #fecaca;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-style: italic; 
+        }
+        .guestbook-date {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            float: right;
+            margin-top: 3px;
+        }
+
+        /* --- Confetti Styles --- */
+        #confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* --- Candle Game Styles --- */
+        #interactive-cake {
+            max-width: 300px;
+            height: 250px; 
+        }
+        
+        /* Simple Cake Base Style to match the aesthetic */
+        .cake-base {
+            position: absolute;
+            bottom: 30px; 
+            width: 90%;
+            max-width: 250px;
+            height: 100px; 
+            background: linear-gradient(to top, #ffe4e6, var(--primary-pink)); 
+            border-radius: 10px 10px 25px 25px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 9; 
+            border: 3px solid var(--dark-pink);
+        }
+
+        /* Improved Candle Styling */
+        .candle {
+            position: relative;
+            cursor: pointer;
+            width: 15px; 
+            height: 55px; 
+            transition: transform 0.1s;
+            margin-top: -5px; 
+        }
+        .candle:hover {
+            transform: scale(1.1);
+        }
+
+        .wax {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #fee2e2, #fca5a5); 
+            border-radius: 3px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .wick {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 8px;
+            background-color: #5d4037; 
+            z-index: 11;
+        }
+
+        /* The Interactive Flame */
+        .flame-svg {
+            position: absolute;
+            top: -18px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 20px;
+            z-index: 12;
+            pointer-events: all; 
+            transition: opacity 0.3s;
+        }
+
+        /* Flame visual */
+        .flame-svg::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background: radial-gradient(circle at 50% 70%, #fff7a1 0%, #ff8c00 70%, #e87e00 100%);
+            box-shadow: 0 0 10px 3px rgba(255, 165, 0, 0.9), 0 0 5px 1px #fff7a1;
+            animation: flicker-candle 1.5s infinite alternate ease-in-out;
+        }
+        
+        /* Extinguished state (Ash) */
+        .flame-extinguished::after {
+            content: '';
+            box-shadow: none !important;
+            background: #4b5563 !important; /* Dark Gray Ash */
+            animation: none !important;
+            opacity: 0.8;
+            transform: translateY(5px);
+            width: 8px;
+            height: 2px;
+            border-radius: 2px;
+        }
+
+        @keyframes flicker-candle {
+            0% { transform: scaleY(1.0); opacity: 0.9; }
+            50% { transform: scaleY(1.1); opacity: 1.0; }
+            100% { transform: scaleY(0.95); opacity: 0.8; }
+        }
+
+        /* Prize Cake Animation */
+        .animated-cake-reward {
+            animation: cake-jump 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes cake-jump {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px) scale(1.1); }
+        }
+        
+        /* Candle Area Position Adjustment */
+        #candle-area {
+            position: absolute;
+            top: 100px; 
+            left: 0; 
+            right: 0; 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 0 10px;
+            z-index: 10;
+        }
+
+        /* --- Countdown Styling --- */
+        #countdown-container {
+            background-color: var(--primary-pink);
+            color: white;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+
+        .countdown-segment {
+            display: inline-block;
+            margin: 0 0.5rem;
+            text-align: center;
+        }
+
+        .countdown-value {
+            display: block;
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hearts Canvas Layer -->
+    <canvas id="heart-canvas"></canvas>
+    
+    <!-- Confetti Layer -->
+    <div id="confetti-container"></div>
+    
+    <!-- Big Transparent Cake in Background -->
+    <div id="transparent-cake">
+        🎂
+    </div>
+
+    <!-- 1. Initial Greeting Card (Visible First) -->
+    <div id="initial-greeting">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4 font-['Inter']">Happy Birthday!</h2> 
+        <p class="text-gray-500 mb-8 font-['Inter']">Click the button below to open your personalized birthday wish, Sarthak.</p>
+        <button id="reveal-button" onclick="startCandleGame()">Open for Sarthak 🎁</button>
+    </div>
+
+    <!-- 2. Candle Game Container (Hidden, shown after initial click) -->
+    <div id="candle-game-container" class="aesthetic-container text-center pt-8" style="opacity: 0; display: none; visibility: hidden;">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 font-['Dancing Script'] text-dark-pink">
+            First, make a wish! 🕯️
+        </h2>
+        <p class="text-gray-600 mb-8">
+            Click on all 5 flames to blow out the candles.
+        </p>
+
+        <!-- The Interactive Cake Area -->
+        <div id="interactive-cake" class="relative mx-auto w-full max-w-xs h-[250px] flex flex-col items-center justify-end mb-10">
+            
+            <!-- Candles positioned above the cake -->
+            <div id="candle-area" class="flex justify-around px-2">
+                <!-- Candle 1 -->
+                <div class="candle">
+                    <div class="flame-svg" data-index="0"></div>
+                    <div class="wick"></div>
+                    <div class="wax"></div>
+                </div>
+                <!-- Candle 2 -->
+                <div class="candle">
+                    <div class="flame-svg" data-index="1"></div>
+                    <div class="wick"></div>
+                    <div class="wax"></div>
+                </div>
+                <!-- Candle 3 (Middle) -->
+                <div class="candle">
+                    <div class="flame-svg" data-index="2"></div>
+                    <div class="wick"></div>
+                    <div class="wax"></div>
+                </div>
+                <!-- Candle 4 -->
+                <div class="candle">
+                    <div class="flame-svg" data-index="3"></div>
+                    <div class="wick"></div>
+                    <div class="wax"></div>
+                </div>
+                <!-- Candle 5 -->
+                <div class="candle">
+                    <div class="flame-svg" data-index="4"></div>
+                    <div class="wick"></div>
+                    <div class="wax"></div>
+                </div>
+            </div>
+            
+            <!-- Simple CSS Cake Base (Replaces Emoji) -->
+            <div class="cake-base"></div>
+        </div>
+        <div id="game-status" class="text-xl font-bold text-gray-700 h-6">5 candles to go!</div>
+    </div>
+    
+    <!-- 3. Animated Prize Cake Container (Hidden until win) -->
+    <div id="prize-cake-container" class="fixed inset-0 bg-dark-pink/80 flex items-center justify-center backdrop-blur-sm z-30" style="display: none; opacity: 0; transition: opacity 0.5s;">
+        <div class="text-center p-10 bg-white rounded-3xl shadow-2xl">
+            <h2 class="text-4xl font-extrabold text-dark-pink mb-4">HAPPY BIRTHDAY!</h2> 
+            <div id="prize-cake-animation" class="text-8xl animated-cake-reward">
+                🍰
+            </div>
+            <p class="text-gray-700 mt-4">Now for your personalized surprise...</p>
+            <button id="continue-button" onclick="goToFinalContent()" class="mt-6 py-2 px-6 bg-dark-pink text-white rounded-full font-bold hover:bg-primary-pink transition">
+                See Message 🎉
+            </button>
+        </div>
+    </div>
+
+    <!-- 4. Main Content Container (Hidden until after game win) -->
+    <div id="main-content" class="aesthetic-container" style="opacity: 0; visibility: hidden;">
+        
+        <header class="text-center mb-10">
+            <h1 id="main-title" class="mb-1">
+                Happy Birthday, Sarthak!
+            </h1>
+            <p id="subtitle" class="font-medium">
+                To the one who always makes life an adventure.
+            </p>
+        </header>
+
+        <!-- New: Countdown Clock Section -->
+        <section id="countdown-section" class="text-center mb-12">
+            <h3 id="countdown-heading" class="text-xl font-bold text-gray-700 mb-3">
+                
+            </h3>
+            <div id="countdown-container">
+                <!-- Countdown elements injected here by JS -->
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 border-b-2 border-primary-pink/50 pb-2 flex items-center justify-between">
+                A Message from Ishikaa
+                <span class="inline-block text-3xl animated-cake">🎂</span>
+            </h2>
+            <div class="personal-message">
+                <p class="text-gray-600 text-lg leading-relaxed italic">
+                    Hey Sarthak! On your big day, I wanted to give you something a little extra special—a corner of the internet dedicated just to celebrating you. You're seriously one of the best friends anyone could ask for, and our memories together are priceless. I hope this next year brings you all the success, ridiculous adventures, and happiness you deserve. Have the best birthday ever! So glad to have you in my life.
+                </p>
+            </div>
+        </section>
+        
+        <!-- --- Digital Guestbook Section --- -->
+        <section class="mt-12 pt-8 border-t border-primary-pink/50">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 flex items-center gap-2 guestbook-title">
+                <span class="text-primary-pink text-3xl">💖</span> The Digital Guestbook
+            </h2>
+
+            <!-- Message Submission Form -->
+            <form id="message-form" class="bg-gray-50 p-4 rounded-xl shadow-md mb-8">
+                <h3 class="text-lg font-bold text-gray-700 mb-3">Leave a Birthday Note!</h3>
+                <input type="text" id="sender-name" placeholder="Your Name (e.g., Ishikaa)" required class="w-full p-2 mb-3 border rounded-lg focus:ring-primary-pink focus:border-primary-pink">
+                <textarea id="message-content" rows="3" placeholder="Write your heartfelt wish here..." required class="w-full p-2 mb-3 border rounded-lg focus:ring-primary-pink focus:border-primary-pink"></textarea>
+                <button type="submit" class="w-full py-2 bg-dark-pink text-white rounded-lg font-bold hover:bg-primary-pink transition duration-300">
+                    Send Wish ✨
+                </button>
+            </form>
+
+            <!-- Messages Display Area -->
+            <div id="messages-container">
+                <p id="loading-messages" class="text-center text-gray-500 italic">Loading messages...</p>
+            </div>
+        </section>
+
+
+        <footer class="text-center pt-8 border-t border-primary-pink/50 mt-12">
+            <p class="text-xl font-medium text-gray-700">
+                Cheers to you! 🎉
+            </p>
+            <p class="text-sm text-gray-400 mt-2">
+                — Your Friend, Ishikaa
+            </p>
+            <!-- User ID Display (Mandatory for multi-user apps) -->
+            <p id="user-id-display" class="mt-4 text-xs text-gray-400">User ID: N/A</p>
+        </footer>
+
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // --- Global Firebase & Auth Variables ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db = null;
+        let auth = null;
+        let userId = null;
+        
+        // Log Firestore events for debugging
+        setLogLevel('Debug');
+
+        // --- Firebase Initialization and Auth ---
+        async function initializeFirebase() {
+            if (!firebaseConfig) {
+                console.error("Firebase configuration is missing.");
+                return;
+            }
+
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('user-id-display').textContent = `User ID: ${userId}`;
+                        loadMessages(); // Start loading messages once authenticated
+                        setupFormListener();
+                    } else {
+                        // Signed out or auth failure, should not happen often with custom token/anonymous sign-in
+                        console.log("User signed out or authentication failed.");
+                        userId = crypto.randomUUID();
+                        document.getElementById('user-id-display').textContent = `User ID: ${userId} (Anon)`;
+                    }
+                });
+
+            } catch (e) {
+                console.error("Error initializing Firebase or signing in:", e);
+                // Fail gracefully
+                document.getElementById('loading-messages').textContent = "Failed to load guestbook due to connection error.";
+            }
+        }
+        
+        // --- Guestbook Logic ---
+        const MESSAGE_COLLECTION_PATH = `artifacts/${appId}/public/data/birthday_messages`;
+        
+        // 1. Save Message Function
+        async function saveMessage(name, content) {
+            if (!db) {
+                console.error("Database not initialized.");
+                return;
+            }
+            
+            try {
+                const docRef = await addDoc(collection(db, MESSAGE_COLLECTION_PATH), {
+                    name: name,
+                    content: content,
+                    timestamp: serverTimestamp(),
+                    senderId: userId || 'anonymous'
+                });
+                console.log("Message saved with ID: ", docRef.id);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
+        }
+
+        // 2. Load Messages (Real-time listener)
+        function loadMessages() {
+            if (!db) return;
+            
+            const messagesContainer = document.getElementById('messages-container');
+            const messagesQuery = collection(db, MESSAGE_COLLECTION_PATH);
+            
+            // We use onSnapshot to listen for real-time updates.
+            onSnapshot(messagesQuery, (snapshot) => {
+                const messages = [];
+                snapshot.forEach((doc) => {
+                    messages.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Sort in memory by timestamp descending
+                messages.sort((a, b) => (b.timestamp?.toMillis() || 0) - (a.timestamp?.toMillis() || 0));
+
+                renderMessages(messages, messagesContainer);
+            }, (error) => {
+                console.error("Error listening to messages:", error);
+                messagesContainer.innerHTML = `<p class="text-red-500 text-center">Failed to load messages: ${error.message}</p>`;
+            });
+        }
+        
+        // 3. Render Messages
+        function renderMessages(messages, container) {
+            if (messages.length === 0) {
+                container.innerHTML = `<p id="loading-messages" class="text-center text-gray-500 italic">Be the first to leave a message!</p>`;
+                return;
+            }
+            
+            container.innerHTML = '';
+            messages.forEach(msg => {
+                // Format timestamp
+                const dateStr = msg.timestamp ? new Date(msg.timestamp.toMillis()).toLocaleString() : 'Just now';
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'guestbook-message';
+                messageDiv.innerHTML = `
+                    <div class="guestbook-header">
+                        ${msg.name} 
+                        <span class="guestbook-date">${dateStr}</span>
+                    </div>
+                    <p class="text-gray-600">${msg.content}</p>
+                    <p class="text-xs text-gray-300 mt-2">Sender ID: ${msg.senderId || 'unknown'}</p>
+                `;
+                container.appendChild(messageDiv);
+            });
+        }
+        
+        // 4. Form Submission Handler
+        function setupFormListener() {
+            const form = document.getElementById('message-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const nameInput = document.getElementById('sender-name');
+                const contentInput = document.getElementById('message-content');
+                
+                const name = nameInput.value.trim() || "Anonymous Friend";
+                const content = contentInput.value.trim();
+
+                if (content) {
+                    await saveMessage(name, content);
+                    nameInput.value = '';
+                    contentInput.value = '';
+                }
+            });
+        }
+        // --- End Guestbook Logic ---
+        
+        // --- Confetti Logic ---
+        const confettiColors = ['#f472b6', '#db2777', '#fecaca', '#ffffff'];
+
+        function launchConfetti() {
+            const container = document.getElementById('confetti-container');
+            const count = 50; 
+            
+            for (let i = 0; i < count; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                
+                // Set color
+                piece.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                
+                // Set random starting position (above the viewport)
+                const startX = Math.random() * 100 + 'vw';
+                piece.style.left = startX;
+                
+                // Randomize size and animation duration
+                const size = Math.random() * 8 + 4;
+                piece.style.width = size + 'px';
+                piece.style.height = size + 'px';
+                piece.style.animationDuration = Math.random() * 2 + 3 + 's';
+                piece.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                container.appendChild(piece);
+            }
+            
+            // Clean up after the animation is done
+            setTimeout(() => {
+                container.innerHTML = ''; 
+            }, 4000); 
+        }
+
+        // --- Candle Game Logic ---
+        const NUM_CANDLES = 5;
+        let candlesExtinguished = Array(NUM_CANDLES).fill(false);
+        const gameStatus = document.getElementById('game-status');
+        
+        // Function to handle clicking a flame
+        window.extinguishCandle = function(candleElement) {
+            const index = parseInt(candleElement.dataset.index);
+            
+            if (candlesExtinguished[index]) return; 
+
+            // 1. Extinguish the flame (CSS change)
+            candleElement.classList.add('flame-extinguished');
+            candlesExtinguished[index] = true;
+            
+            const remaining = candlesExtinguished.filter(c => !c).length;
+            
+            // 2. Update status
+            gameStatus.textContent = remaining === 0 ? "You did it! Now watch!" : `${remaining} candles to go!`;
+
+            // 3. Check win condition
+            if (remaining === 0) {
+                setTimeout(triggerWin, 500); // Small delay for effect
+            }
+        }
+        
+        // Function to trigger the win state (Prize Cake)
+        function triggerWin() {
+            const prizeContainer = document.getElementById('prize-cake-container');
+            const gameContainer = document.getElementById('candle-game-container');
+            
+            // Hide game and show prize
+            gameContainer.style.opacity = '0';
+            setTimeout(() => {
+                gameContainer.style.visibility = 'hidden';
+                gameContainer.style.display = 'none';
+                
+                prizeContainer.style.display = 'flex';
+                setTimeout(() => { prizeContainer.style.opacity = '1'; }, 10);
+            }, 500);
+        }
+
+        // Function to transition to the final birthday message
+        window.goToFinalContent = function() {
+            const prizeContainer = document.getElementById('prize-cake-container');
+            const mainContent = document.getElementById('main-content');
+
+            // Hide prize
+            prizeContainer.style.opacity = '0';
+            setTimeout(() => { prizeContainer.style.display = 'none'; }, 500);
+
+            // Show main content
+            mainContent.style.visibility = 'visible';
+            setTimeout(() => { mainContent.style.opacity = '1'; }, 50); 
+            
+            // Start Firebase and Confetti
+            initializeFirebase();
+            launchConfetti();
+            startCountdown(); // Start the countdown when the main content loads
+        }
+        
+        // Initial function changed to start the game
+        window.startCandleGame = async function() {
+            const initialGreeting = document.getElementById('initial-greeting');
+            const gameContainer = document.getElementById('candle-game-container');
+            
+            // 1. Fade out initial card
+            initialGreeting.style.opacity = '0';
+            initialGreeting.style.transform = 'translate(-50%, -50%) scale(0.9)';
+
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            initialGreeting.style.display = 'none';
+
+            // 2. Show the game container (Candle Game)
+            gameContainer.style.display = 'block';
+            gameContainer.style.visibility = 'visible';
+            setTimeout(() => { gameContainer.style.opacity = '1'; }, 50); 
+            
+            setupCandleListeners();
+        }
+
+        // Event listener setup for candles
+        function setupCandleListeners() {
+            document.querySelectorAll('#candle-area .flame-svg').forEach(flame => {
+                flame.addEventListener('click', (e) => {
+                    // Prevent event from bubbling up to the entire candle wrapper if any
+                    e.stopPropagation(); 
+                    extinguishCandle(flame);
+                });
+            });
+        }
+
+        // --- Countdown Logic ---
+        
+        // Target Date: November 5th, 2025 (Month 10 is November in JS)
+        const TARGET_MONTH = 10; 
+        const TARGET_DAY = 5;
+
+        function getNextTargetDate() {
+            const now = new Date();
+            let targetYear = now.getFullYear();
+            
+            // Create a Date object for this year's target date
+            let targetDate = new Date(targetYear, TARGET_MONTH, TARGET_DAY);
+
+            // If the target date has already passed this year, target next year
+            if (targetDate.getTime() < now.getTime()) {
+                targetYear++;
+                targetDate = new Date(targetYear, TARGET_MONTH, TARGET_DAY);
+            }
+            
+            // Special case for 2025 based on user input
+            if (targetYear < 2025 || (targetYear === 2025 && now.getTime() < new Date(2025, 10, 5).getTime())) {
+                return new Date(2025, 10, 5);
+            }
+
+            return targetDate;
+        }
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const nextBirthday = getNextTargetDate();
+            const birthdayTime = nextBirthday.getTime();
+            let difference = birthdayTime - now;
+
+            const countdownContainer = document.getElementById('countdown-container');
+            const countdownHeading = document.getElementById('countdown-heading');
+
+            let prefix = "Time until Sarthak's next birthday:";
+            
+            // Check if it's currently the birthday
+            const isBirthday = (difference <= 0 && difference > - (24 * 60 * 60 * 1000));
+            
+            if (isBirthday) {
+                 countdownContainer.innerHTML = `<span class="text-3xl">🎉 TODAY IS THE DAY! HAPPY BIRTHDAY! 🎉</span>`;
+                 countdownHeading.textContent = "It's November 5th!";
+                 clearInterval(countdownInterval);
+                 launchConfetti();
+                 return;
+            }
+            
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            countdownHeading.textContent = prefix;
+
+            countdownContainer.innerHTML = `
+                <div class="countdown-segment">
+                    <span class="countdown-value">${days}</span>
+                    <span class="countdown-label">DAYS</span>
+                </div>
+                <div class="countdown-segment">
+                    <span class="countdown-value">${hours}</span>
+                    <span class="countdown-label">HOURS</span>
+                </div>
+                <div class="countdown-segment">
+                    <span class="countdown-value">${minutes}</span>
+                    <span class="countdown-label">MINUTES</span>
+                </div>
+                <div class="countdown-segment">
+                    <span class="countdown-value">${seconds}</span>
+                    <span class="countdown-label">SECONDS</span>
+                </div>
+            `;
+        }
+
+        let countdownInterval;
+
+        function startCountdown() {
+            updateCountdown(); 
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        // --- Floating Hearts Animation Logic (Canvas) ---
+
+        const canvas = document.getElementById('heart-canvas');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+        const colors = ['#f472b6', '#db2777', '#fecaca', '#ffffff'];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class HeartParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 20 + 10; 
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 0.5,
+                    y: Math.random() * -1.5 - 0.5
+                };
+                this.life = 1.0; 
+                this.decay = Math.random() * 0.005 + 0.005;
+                this.wind = Math.random() * 0.05 + 0.05;
+            }
+
+            drawHeart(x, y, size, color) {
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(x, y + size / 4);
+                ctx.bezierCurveTo(x + size / 2, y - size / 2, x + size, y, x, y + size);
+                ctx.bezierCurveTo(x - size, y, x - size / 2, y - size / 2, x, y + size / 4);
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.velocity.x + Math.sin(this.y / 100) * this.wind;
+                this.y += this.velocity.y;
+                this.life -= this.decay;
+            }
+
+            draw() {
+                ctx.globalAlpha = this.life;
+                this.drawHeart(this.x, this.y, this.size, this.color);
+                ctx.globalAlpha = 1; 
+            }
+        }
+
+        function generateHearts() {
+            const x = canvas.width / 2 + (Math.random() - 0.5) * 200;
+            const y = canvas.height + 10;
+            // Only generate a small amount occasionally for subtle effect
+            for (let i = 0; i < Math.random() * 2 + 1; i++) {
+                hearts.push(new HeartParticle(x, y));
+            }
+        }
+
+        function animateHearts() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = hearts.length - 1; i >= 0; i--) {
+                const h = hearts[i];
+                h.update();
+                h.draw();
+
+                if (h.y < -h.size || h.life <= 0) {
+                    hearts.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animateHearts);
+        }
+
+        window.onload = function() {
+            animateHearts();
+            setInterval(generateHearts, 300); 
+        };
+
+    </script>
+</body>
+</html>
